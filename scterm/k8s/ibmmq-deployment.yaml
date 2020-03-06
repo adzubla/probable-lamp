@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ibmmq-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ibmmq
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ibmmq
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8081"
+        prometheus.io/scheme: "http"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      containers:
+        - name: ibmmq
+          image: ibmcom/mq
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9443
+              name: https
+            - containerPort: 1414
+              name: mq
+          env:
+            - name: LICENSE
+              value: "accept"
+            - name: MQ_QMGR_NAME
+              value: "QM1"
+            - name: MQ_ENABLE_METRICS
+              value: "true"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ibmmq
+spec:
+  selector:
+    app: ibmmq
+  type: NodePort
+  ports:
+    - protocol: TCP
+      name: mq
+      port: 1414
+      targetPort: 1414
+      nodePort: 31414
+    - protocol: TCP
+      name: https
+      port: 9443
+      targetPort: 9443
+      nodePort: 32443
+
+---

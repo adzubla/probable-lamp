@@ -1,0 +1,35 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scterm-client-deployment
+spec:
+  selector:
+    matchLabels:
+      app: scterm-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: scterm-client
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8081"
+        prometheus.io/scheme: "http"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      containers:
+        - name: scterm-client
+          image: localhost.localdomain:5000/scterm-client:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SCTERM_HOST
+              value: "scterm-server"
+            - name: SCTERM_PORT
+              value: "7777"
+            - name: CLIENTS
+              value: "1"
+            - name: DELAY
+              value: "1000"
+
+---

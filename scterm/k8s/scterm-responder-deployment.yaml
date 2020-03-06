@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scterm-responder
+data:
+  application.properties: |-
+    ibm.mq.connName=ibmmq(1414)
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scterm-responder-deployment
+spec:
+  selector:
+    matchLabels:
+      app: scterm-responder
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: scterm-responder
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8081"
+        prometheus.io/scheme: "http"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      containers:
+        - name: scterm-responder
+          image: localhost.localdomain:5000/scterm-responder:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+
+---

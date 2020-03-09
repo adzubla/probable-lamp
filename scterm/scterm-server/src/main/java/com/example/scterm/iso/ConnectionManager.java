@@ -3,6 +3,7 @@ package com.example.scterm.iso;
 import io.netty.channel.ChannelHandlerContext;
 import org.springframework.stereotype.Component;
 
+import java.net.SocketAddress;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
@@ -49,6 +50,14 @@ public class ConnectionManager {
 
         public ChannelHandlerContext getChannelHandlerContext() {
             return channelHandlerContext;
+        }
+
+        public String getName() {
+            return channelHandlerContext.name();
+        }
+
+        public SocketAddress getRemoteAddress() {
+            return channelHandlerContext.channel().remoteAddress();
         }
     }
 

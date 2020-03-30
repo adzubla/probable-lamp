@@ -279,6 +279,7 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.13</version>
+<!--
                 <executions>
                     <execution>
                         <id>default</id>
@@ -288,6 +289,7 @@
                         </goals>
                     </execution>
                 </executions>
+-->
                 <configuration>
                     <tag>${project.version}</tag>
                     <repository>${docker.repository.prefix}/${project.artifactId}</repository>

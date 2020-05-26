@@ -24,7 +24,7 @@ import java.util.concurrent.CountDownLatch;
  * Cliente sincrono para ISO-8583. Não é thread-safe.
  */
 public class SynchIsoClient {
-    private static Logger LOG = LoggerFactory.getLogger(SynchIsoClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SynchIsoClient.class);
 
     private String hostname;
     private int port;

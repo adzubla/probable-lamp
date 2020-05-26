@@ -158,7 +158,7 @@
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-kafka:2.12.1" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-activemq-client:2.12.1" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-amqp-client:2.12.1" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.mq:mq-jms-spring-boot-starter:2.2.7" level="project" />
+    <orderEntry type="library" name="Maven: com.ibm.mq:mq-jms-spring-boot-starter:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.mq:com.ibm.mq.allclient:9.1.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.64" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.64" level="project" />

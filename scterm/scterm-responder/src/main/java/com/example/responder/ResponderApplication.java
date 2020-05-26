@@ -16,7 +16,7 @@ import java.util.Arrays;
 @EnableJms
 public class ResponderApplication {
 
-    private static Logger LOG = LoggerFactory.getLogger(ResponderApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ResponderApplication.class);
 
     @Autowired
     BuildProperties buildProperties;

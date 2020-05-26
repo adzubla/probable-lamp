@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Tester {
-    private static Logger LOG = LoggerFactory.getLogger(Tester.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Tester.class);
 
     private static long pid;
 

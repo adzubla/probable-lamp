@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 @Service
 public class QueueListener {
-    private static Logger LOG = LoggerFactory.getLogger(QueueListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QueueListener.class);
 
     @Autowired
     private MessageFactory<IsoMessage> messageFactory;

@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutorService;
 
 @Service
 public class IsoListener implements IsoMessageListener<IsoMessage> {
-    private static Logger LOG = LoggerFactory.getLogger(IsoListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IsoListener.class);
 
     @Autowired
     private ConnectionManager connectionManager;

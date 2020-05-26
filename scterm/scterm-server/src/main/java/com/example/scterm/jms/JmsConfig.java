@@ -14,7 +14,7 @@ import javax.jms.TemporaryQueue;
 
 @Configuration
 public class JmsConfig {
-    private static Logger LOG = LoggerFactory.getLogger(JmsConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JmsConfig.class);
 
     /*
         @Bean

@@ -14,7 +14,7 @@ import javax.annotation.PreDestroy;
 
 @Service
 public class IsoServer {
-    private static Logger LOG = LoggerFactory.getLogger(IsoServer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IsoServer.class);
 
     private Iso8583Server<IsoMessage> server;
 

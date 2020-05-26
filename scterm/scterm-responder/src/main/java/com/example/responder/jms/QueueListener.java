@@ -12,7 +12,7 @@ import javax.jms.*;
 
 @Service
 public class QueueListener {
-    private static Logger LOG = LoggerFactory.getLogger(QueueListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QueueListener.class);
 
     @Autowired
     private JmsTemplate jmsTemplate;

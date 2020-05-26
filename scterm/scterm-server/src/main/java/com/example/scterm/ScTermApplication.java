@@ -16,7 +16,7 @@ import java.util.Arrays;
 @EnableJms
 public class ScTermApplication {
 
-    private static Logger LOG = LoggerFactory.getLogger(ScTermApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ScTermApplication.class);
 
     @Autowired
     BuildProperties buildProperties;

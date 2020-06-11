@@ -21,7 +21,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 /**
  * Handles a client-side channel.
  */
-public class SecureChatClientHandler extends SimpleChannelInboundHandler<String> {
+public class ChatClientHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {

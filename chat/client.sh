@@ -1,1 +1,1 @@
-mvn exec:java -Dexec.mainClass=com.example.atm.netty.client.SecureChatClient
+mvn exec:java -Dexec.mainClass=com.example.atm.netty.client.ChatClient

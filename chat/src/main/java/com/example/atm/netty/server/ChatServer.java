@@ -22,7 +22,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-public final class SecureChatServer {
+public final class ChatServer {
 
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
 
@@ -35,7 +35,7 @@ public final class SecureChatServer {
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new SecureChatServerInitializer());
+                    .childHandler(new ChatServerInitializer());
 
             b.bind(PORT).sync().channel().closeFuture().sync();
         } finally {

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.example.atm.netty.client;
+package com.example.atm.netty.server;
 
 import com.example.atm.netty.codec.crypto.CryptoDecoder;
 import com.example.atm.netty.codec.crypto.CryptoEncoder;
@@ -32,7 +32,7 @@ import io.netty.handler.codec.string.StringEncoder;
 /**
  * Creates a newly configured {@link ChannelPipeline} for a new channel.
  */
-public class SecureChatClientInitializer extends ChannelInitializer<SocketChannel> {
+public class ChatServerInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     public void initChannel(SocketChannel ch) throws Exception {
@@ -50,6 +50,6 @@ public class SecureChatClientInitializer extends ChannelInitializer<SocketChanne
         pipeline.addLast(new HeaderEncoder());
         pipeline.addLast(new StringEncoder());
 
-        pipeline.addLast(new SecureChatClientHandler());
+        pipeline.addLast(new ChatServerHandler());
     }
 }

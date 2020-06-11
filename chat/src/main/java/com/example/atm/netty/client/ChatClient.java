@@ -27,7 +27,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 
-public final class SecureChatClient {
+public final class ChatClient {
 
     static final String HOST = System.getProperty("host", "127.0.0.1");
     static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
@@ -41,7 +41,7 @@ public final class SecureChatClient {
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
-                    .handler(new SecureChatClientInitializer());
+                    .handler(new ChatClientInitializer());
 
             // Start the connection attempt.
             Channel ch = b.connect(HOST, PORT).sync().channel();

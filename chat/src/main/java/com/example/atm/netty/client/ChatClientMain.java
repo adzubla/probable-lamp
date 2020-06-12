@@ -18,7 +18,7 @@ package com.example.atm.netty.client;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public final class ChatMain {
+public final class ChatClientMain {
 
     static final String ID = String.format("%06d", ProcessHandle.current().pid());
     static final String HOST = System.getProperty("host", "127.0.0.1");

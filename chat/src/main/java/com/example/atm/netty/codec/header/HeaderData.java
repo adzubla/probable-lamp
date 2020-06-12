@@ -6,14 +6,14 @@ public class HeaderData {
 
     public static final AttributeKey<HeaderData> HEADER_DATA_ATTRIBUTE_KEY = AttributeKey.newInstance("HeaderData.attr");
 
-    private String id;
+    private final String id;
+
+    public HeaderData(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     @Override

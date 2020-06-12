@@ -13,6 +13,9 @@ public class HeaderEncoder extends MessageToByteEncoder<ByteBuf> {
 
     private ByteBuf prependHeader(ByteBuf data, ChannelHandlerContext ctx) {
         HeaderData headerData = ctx.channel().attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).get();
+        if (headerData == null) {
+            throw new IllegalStateException("HeaderData not found in pipeline");
+        }
 
         ByteBuf header = HeaderUtil.create(headerData);
         return header.writeBytes(data);

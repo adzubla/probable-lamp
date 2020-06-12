@@ -32,8 +32,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void channelActive(final ChannelHandlerContext ctx) {
-        HeaderData headerData = new HeaderData();
-        headerData.setId("0000");
+        HeaderData headerData = new HeaderData("000000");
 
         ctx.channel().attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).set(headerData);
 

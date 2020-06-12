@@ -5,22 +5,21 @@ import io.netty.buffer.Unpooled;
 
 public class HeaderUtil {
 
-    public static final int HEADER_LENGTH = 4;
+    public static final int HEADER_LENGTH = 6;
 
     static ByteBuf create(HeaderData h) {
         ByteBuf header = Unpooled.buffer(HEADER_LENGTH);
 
-        header.writeBytes(h.getId().getBytes(), 0, 4);
+        header.writeBytes(h.getId().getBytes(), 0, HEADER_LENGTH);
 
         return header;
     }
 
     public static HeaderData read(ByteBuf header) {
-        byte[] id = new byte[4];
-        header.readBytes(id, 0, 4);
+        byte[] id = new byte[HEADER_LENGTH];
+        header.readBytes(id, 0, HEADER_LENGTH);
 
-        HeaderData headerData = new HeaderData();
-        headerData.setId(new String(id));
+        HeaderData headerData = new HeaderData(new String(id));
 
         return headerData;
     }

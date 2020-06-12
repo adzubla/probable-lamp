@@ -23,60 +23,46 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-
 public final class ChatClient {
 
-    static final String HOST = System.getProperty("host", "127.0.0.1");
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
+    private final String host;
+    private final int port;
+    private final HeaderData headerData;
 
-    public static void main(String[] args) throws Exception {
-        long pid = ProcessHandle.current().pid();
-        String id = String.format("%04d", pid);
+    private EventLoopGroup group;
+    private Channel channel;
 
-        EventLoopGroup group = new NioEventLoopGroup();
-        try {
-            Bootstrap b = new Bootstrap();
-            b.group(group)
-                    .channel(NioSocketChannel.class)
-                    .handler(new ChatClientInitializer());
+    public ChatClient(String id, String host, int port) {
+        this.host = host;
+        this.port = port;
+        this.headerData = new HeaderData(id);
+    }
 
-            // Start the connection attempt.
-            Channel ch = b.connect(HOST, PORT).sync().channel();
+    public void connect() throws InterruptedException {
+        group = new NioEventLoopGroup();
+        Bootstrap b = new Bootstrap();
+        b.group(group).channel(NioSocketChannel.class).handler(new ChatClientInitializer());
 
-            // Read commands from the stdin.
-            ChannelFuture lastWriteFuture = null;
-            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            while (true) {
-                String line = in.readLine();
-                if (line == null) {
-                    break;
-                }
+        channel = b.connect(host, port).sync().channel();
+    }
 
-                HeaderData headerData = new HeaderData();
-                headerData.setId(id);
-                ch.attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).set(headerData);
+    public void write(String line) throws InterruptedException {
+        channel.attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).set(headerData);
 
-                // Sends the received line to the server.
-                lastWriteFuture = ch.writeAndFlush(line);
+        ChannelFuture lastWriteFuture = channel.writeAndFlush(line);
+        if (lastWriteFuture != null) {
+            lastWriteFuture.sync();
+        }
+    }
 
-                // If user typed the 'bye' command, wait until the server closes
-                // the connection.
-                if ("bye".equals(line.toLowerCase())) {
-                    ch.closeFuture().sync();
-                    break;
-                }
-            }
+    public void close() throws InterruptedException {
+        channel.closeFuture().sync();
+    }
 
-            // Wait until all messages are flushed before closing the channel.
-            if (lastWriteFuture != null) {
-                lastWriteFuture.sync();
-            }
-        } finally {
-            // The connection is closed automatically on shutdown.
+    public void shutdown() {
+        if (group != null) {
             group.shutdownGracefully();
         }
     }
+
 }

@@ -24,23 +24,35 @@ import io.netty.handler.logging.LoggingHandler;
 
 public final class ChatServer {
 
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8992"));
+    private final int port;
 
-    public static void main(String[] args) throws Exception {
+    private EventLoopGroup bossGroup;
+    private EventLoopGroup workerGroup;
 
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
-        try {
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
-                    .channel(NioServerSocketChannel.class)
-                    .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ChatServerInitializer());
+    public ChatServer(int port) {
+        this.port = port;
+    }
 
-            b.bind(PORT).sync().channel().closeFuture().sync();
-        } finally {
+    public void start() throws Exception {
+        bossGroup = new NioEventLoopGroup(1);
+        workerGroup = new NioEventLoopGroup();
+
+        ServerBootstrap b = new ServerBootstrap();
+        b.group(bossGroup, workerGroup)
+                .channel(NioServerSocketChannel.class)
+                .handler(new LoggingHandler(LogLevel.INFO))
+                .childHandler(new ChatServerInitializer());
+
+        b.bind(port).sync().channel().closeFuture().sync();
+    }
+
+    public void shutdown() {
+        if (bossGroup != null) {
             bossGroup.shutdownGracefully();
+        }
+        if (workerGroup != null) {
             workerGroup.shutdownGracefully();
         }
     }
+
 }

@@ -33,7 +33,6 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void channelActive(final ChannelHandlerContext ctx) {
         HeaderData headerData = new HeaderData("000000");
-
         ctx.channel().attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).set(headerData);
 
         ctx.writeAndFlush("Welcome to secure chat service!");

@@ -41,7 +41,9 @@ public final class ChatClient {
     public void connect() throws InterruptedException {
         group = new NioEventLoopGroup();
         Bootstrap b = new Bootstrap();
-        b.group(group).channel(NioSocketChannel.class).handler(new ChatClientInitializer());
+        b.group(group)
+                .channel(NioSocketChannel.class)
+                .handler(new ChatClientInitializer());
 
         channel = b.connect(host, port).sync().channel();
     }

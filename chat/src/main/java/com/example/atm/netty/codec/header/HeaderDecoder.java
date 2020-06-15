@@ -22,7 +22,7 @@ public class HeaderDecoder extends ByteToMessageDecoder {
         ByteBuf header = data.readSlice(HEADER_LENGTH);
         ByteBuf content = data.readSlice(length - HEADER_LENGTH);
 
-        HeaderData headerData = HeaderUtil.read(header);
+        HeaderData headerData = HeaderUtil.deserialize(header);
         ctx.channel().attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).set(headerData);
 
         return content.retain();

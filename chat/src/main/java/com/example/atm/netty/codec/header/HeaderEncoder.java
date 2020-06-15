@@ -17,7 +17,7 @@ public class HeaderEncoder extends MessageToByteEncoder<ByteBuf> {
             throw new IllegalStateException("HeaderData not found in pipeline");
         }
 
-        ByteBuf header = HeaderUtil.create(headerData);
+        ByteBuf header = HeaderUtil.serialize(headerData);
         return header.writeBytes(data);
     }
 

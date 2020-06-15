@@ -8,12 +8,12 @@ public class HeaderData {
 
     public static int ID_LENGTH = 12;
 
-    private final byte versao = 1;
-    private final byte formato = 1;
-    private final byte servico = 5;
-    private final byte tipo = 3;
-    private final byte formatoId = 1;
-    private final byte[] reservado = new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private byte versao = 1;
+    private byte formato = 1;
+    private byte servico = 5;
+    private byte tipo = 3;
+    private byte formatoId = 1;
+    private byte[] reservado = new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     private String id;
 
@@ -30,28 +30,55 @@ public class HeaderData {
         return versao;
     }
 
+    public void setVersao(byte versao) {
+        this.versao = versao;
+    }
+
     public byte getFormato() {
         return formato;
+    }
+
+    public void setFormato(byte formato) {
+        this.formato = formato;
     }
 
     public byte getServico() {
         return servico;
     }
 
+    public void setServico(byte servico) {
+        this.servico = servico;
+    }
+
     public byte getTipo() {
         return tipo;
+    }
+
+    public void setTipo(byte tipo) {
+        this.tipo = tipo;
     }
 
     public byte getFormatoId() {
         return formatoId;
     }
 
-    public String getId() {
-        return id;
+    public void setFormatoId(byte formatoId) {
+        this.formatoId = formatoId;
     }
 
     public byte[] getReservado() {
         return reservado;
+    }
+
+    public void setReservado(byte[] reservado) {
+        if (reservado == null || reservado.length != 13) {
+            throw new IllegalArgumentException("Reservado invalido");
+        }
+        this.reservado = reservado;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override

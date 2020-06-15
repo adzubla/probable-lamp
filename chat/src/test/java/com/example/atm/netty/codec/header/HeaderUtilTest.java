@@ -26,10 +26,12 @@ class HeaderUtilTest {
     @Test
     void testSerialize() {
         HeaderData headerData = new HeaderData("000000120987");
+        ByteBuf out = Unpooled.buffer(HeaderUtil.HEADER_LENGTH);
 
-        ByteBuf data = HeaderUtil.serialize(headerData);
+        HeaderUtil.serialize(headerData, out);
 
-        assertEquals(0, ByteBufUtil.compare(messageBuf, data));
+        assertEquals(HeaderUtil.HEADER_LENGTH, out.readableBytes());
+        assertEquals(0, ByteBufUtil.compare(messageBuf, out));
     }
 
     @Test

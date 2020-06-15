@@ -6,8 +6,6 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
-import static com.example.atm.netty.codec.header.HeaderUtil.HEADER_LENGTH;
-
 public class HeaderDecoder extends ByteToMessageDecoder {
 
 
@@ -17,13 +15,10 @@ public class HeaderDecoder extends ByteToMessageDecoder {
     }
 
     private ByteBuf processHeader(ByteBuf data, ChannelHandlerContext ctx) {
-        int length = data.readableBytes();
-
-        ByteBuf header = data.readSlice(HEADER_LENGTH);
-        ByteBuf content = data.readSlice(length - HEADER_LENGTH);
-
-        HeaderData headerData = HeaderUtil.deserialize(header);
+        HeaderData headerData = HeaderUtil.deserialize(data);
         ctx.channel().attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).set(headerData);
+
+        ByteBuf content = data.readSlice(data.readableBytes());
 
         return content.retain();
     }

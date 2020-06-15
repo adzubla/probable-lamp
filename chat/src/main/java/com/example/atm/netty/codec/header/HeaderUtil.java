@@ -1,24 +1,19 @@
 package com.example.atm.netty.codec.header;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 
 public class HeaderUtil {
 
     public static final int HEADER_LENGTH = 30;
 
-    static ByteBuf serialize(HeaderData h) {
-        ByteBuf header = Unpooled.buffer(HEADER_LENGTH);
-
-        header.writeByte(h.getVersao());
-        header.writeByte(h.getFormato());
-        header.writeByte(h.getServico());
-        header.writeByte(h.getTipo());
-        header.writeByte(h.getFormatoId());
-        header.writeBytes(h.getId().getBytes());
-        header.writeBytes(h.getReservado());
-
-        return header;
+    static void serialize(HeaderData h, ByteBuf out) {
+        out.writeByte(h.getVersao());
+        out.writeByte(h.getFormato());
+        out.writeByte(h.getServico());
+        out.writeByte(h.getTipo());
+        out.writeByte(h.getFormatoId());
+        out.writeBytes(h.getId().getBytes());
+        out.writeBytes(h.getReservado());
     }
 
     public static HeaderData deserialize(ByteBuf header) {

@@ -8,17 +8,15 @@ public class HeaderEncoder extends MessageToByteEncoder<ByteBuf> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf msg, ByteBuf out) throws Exception {
-        out.writeBytes(prependHeader(msg, ctx));
-    }
-
-    private ByteBuf prependHeader(ByteBuf data, ChannelHandlerContext ctx) {
         HeaderData headerData = ctx.channel().attr(HeaderData.HEADER_DATA_ATTRIBUTE_KEY).get();
         if (headerData == null) {
             throw new IllegalStateException("HeaderData not found in pipeline");
         }
 
-        ByteBuf header = HeaderUtil.serialize(headerData);
-        return header.writeBytes(data);
+        // prepend header to output
+        HeaderUtil.serialize(headerData, out);
+
+        out.writeBytes(msg);
     }
 
 }
